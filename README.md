@@ -1,4 +1,3 @@
-````md
 # Toll Plaza Operator Dashboard
 
 A mini full-stack Toll Plaza Management System built using Angular and NestJS.
@@ -182,4 +181,3 @@ Toll-Plaza-college-project/
 
 RogerRWT  
 College Mini Project
-````
