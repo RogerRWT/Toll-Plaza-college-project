@@ -6,8 +6,8 @@ You deploy **two parts**:
 
 | Part | Host (free tier) | Example URL |
 |------|------------------|-------------|
-| **Backend** (NestJS API) | [Render](https://render.com) | `https://toll-plaza-api.onrender.com` |
-| **Frontend** (Angular UI) | [Netlify](https://netlify.com) or [Vercel](https://vercel.com) | `https://toll-plaza-dashboard.netlify.app` |
+| **Backend** (NestJS API) | [Render](https://toll-plaza-college-project.onrender.com/) | `https://toll-plaza-api.onrender.com` |
+| **Frontend** (Angular UI) | [Netlify](https://fascinating-pika-e72922.netlify.app/)  | `https://toll-plaza-dashboard.netlify.app` |
 
 > **Note:** The backend uses in-memory storage. Data resets when the server restarts (fine for demos/college).
 
