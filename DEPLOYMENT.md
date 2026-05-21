@@ -1,147 +1,96 @@
-# Deploy Toll Plaza Online (Free)
+# Deployment Guide
 
-Run the app on the internet so anyone can open a link — not only `localhost`.
+This project is deployed online using free hosting services.
 
-You deploy **two parts**:
+## Live Links
 
-| Part | Host (free tier) | Example URL |
-|------|------------------|-------------|
-| **Backend** (NestJS API) | [Render](https://toll-plaza-college-project.onrender.com/) | `https://toll-plaza-api.onrender.com` |
-| **Frontend** (Angular UI) | [Netlify](https://fascinating-pika-e72922.netlify.app/)  | `https://toll-plaza-dashboard.netlify.app` |
+### Frontend (Angular UI)
+https://fascinating-pika-e72922.netlify.app/
 
-> **Note:** The backend uses in-memory storage. Data resets when the server restarts (fine for demos/college).
+### Backend API (NestJS)
+https://toll-plaza-college-project.onrender.com/
+
+### GitHub Repository
+https://github.com/RogerRWT/Toll-Plaza-college-project
 
 ---
 
-## Part 1 — Deploy the backend (API)
+# Backend Deployment (Render)
 
-### A. Push code to GitHub
+1. Push project to GitHub
+2. Go to https://render.com
+3. Create a new **Web Service**
+4. Connect the GitHub repository
 
-Your repo: https://github.com/RogerRWT/Toll-Plaza-college-project
-
-### B. Create a Render web service
-
-1. Sign up at https://render.com (GitHub login).
-2. **New +** → **Web Service**.
-3. Connect repository `Toll-Plaza-college-project`.
-4. Settings:
+Use these settings:
 
 | Setting | Value |
-|---------|--------|
-| **Root Directory** | `backend` |
-| **Runtime** | Node |
-| **Build Command** | `npm install && npm run build` |
-| **Start Command** | `npm run start:prod` |
-| **Instance type** | Free |
+|---------|-------|
+| Root Directory | `backend` |
+| Runtime | Node |
+| Build Command | `npm install && npm run build` |
+| Start Command | `npm run start:prod` |
 
-5. **Environment variables** (optional for now):
+After deployment, Render provides a live API URL.
 
-| Key | Value |
-|-----|--------|
-| `NODE_ENV` | `production` |
-| `CORS_ORIGIN` | `http://localhost:4200` *(update after frontend deploy)* |
+Example:
 
-6. Click **Create Web Service**.
-7. Wait until status is **Live**.
-8. Copy your API URL, e.g. `https://toll-plaza-api-xxxx.onrender.com`
-9. Test in browser: `https://YOUR-API-URL.onrender.com/logs` → should show JSON.
+```bash
+https://toll-plaza-college-project.onrender.com/logs
+```
 
 ---
 
-## Part 2 — Point the frontend to the live API
+# Frontend Deployment (Netlify)
 
-Edit `frontend/src/environments/environment.prod.ts`:
+1. Go to https://netlify.com
+2. Import the GitHub repository
+3. Configure these settings:
+
+| Setting | Value |
+|---------|-------|
+| Base Directory | `frontend` |
+| Build Command | `npm run build` |
+| Publish Directory | `dist/toll-plaza-frontend/browser` |
+
+Deploy the site and Netlify will generate a live frontend URL.
+
+---
+
+# Production API Configuration
+
+Update:
+
+```bash
+frontend/src/environments/environment.prod.ts
+```
+
+Example:
 
 ```typescript
 export const environment = {
   production: true,
-  apiUrl: 'https://YOUR-API-URL.onrender.com/logs',  // ← your Render URL + /logs
+  apiUrl: 'https://toll-plaza-college-project.onrender.com/logs',
 };
 ```
 
-Commit and push to GitHub:
-
-```bash
-git add frontend/src/environments/environment.prod.ts
-git commit -m "Set production API URL for online deployment"
-git push
-```
+Push changes to GitHub after updating.
 
 ---
 
-## Part 3 — Deploy the frontend (dashboard)
+# Important Notes
 
-### Option A — Netlify (recommended)
-
-1. Sign up at https://netlify.com (GitHub login).
-2. **Add new site** → **Import an existing project** → GitHub → select `Toll-Plaza-college-project`.
-3. Settings:
-
-| Setting | Value |
-|---------|--------|
-| **Base directory** | `frontend` |
-| **Build command** | `npm run build` |
-| **Publish directory** | `dist/toll-plaza-frontend/browser` |
-
-4. Deploy. Copy your site URL, e.g. `https://random-name.netlify.app`.
-
-### Option B — Vercel
-
-1. https://vercel.com → **Add New Project** → import repo.
-2. **Root Directory:** `frontend`
-3. Build/output are read from `frontend/vercel.json`.
-4. Deploy and copy the URL.
+- Backend uses in-memory storage
+- Data resets whenever the server restarts
+- Render free tier may sleep after inactivity
+- First API request may take a few seconds
 
 ---
 
-## Part 4 — Allow the frontend to call the API (CORS)
+# Deployment Platforms Used
 
-On **Render**, open your backend service → **Environment**:
-
-| Key | Value |
-|-----|--------|
-| `CORS_ORIGIN` | `https://YOUR-NETLIFY-URL.netlify.app` |
-
-(No trailing slash. If you use Vercel, use that URL instead.)
-
-Click **Save Changes** — Render will redeploy.
-
----
-
-## Part 5 — Test the live app
-
-1. Open your **Netlify/Vercel URL** in a browser.
-2. You should see the toll table and be able to add entries.
-3. If you see a connection error, check:
-   - `environment.prod.ts` has the correct API URL ending in `/logs`
-   - `CORS_ORIGIN` on Render matches your frontend URL exactly
-   - Backend on Render is **Live** (free tier may sleep — first load can take ~30s)
-
----
-
-## What to submit to college (online demo)
-
-| Item | Example |
-|------|---------|
-| GitHub repo | https://github.com/RogerRWT/Toll-Plaza-college-project |
-| Live dashboard | `https://your-site.netlify.app` |
-| Live API (optional) | `https://your-api.onrender.com/logs` |
-
-Mention in README that the instructor can use **either** local setup (README) **or** the live link.
-
----
-
-## Costs
-
-Render, Netlify, and Vercel free tiers are enough for a college project. Free backends may **spin down** after inactivity; the first request after sleep is slow.
-
----
-
-## Troubleshooting
-
-| Problem | Fix |
-|---------|-----|
-| Frontend loads but no data | Wrong `apiUrl` in `environment.prod.ts` or CORS not set |
-| CORS error in browser console | Set `CORS_ORIGIN` on Render to your exact frontend URL |
-| API very slow first time | Render free tier waking up — wait and refresh |
-| 404 on Netlify routes | `netlify.toml` redirects are included — redeploy |
+| Service | Purpose |
+|---------|---------|
+| Render | Backend Hosting |
+| Netlify | Frontend Hosting |
+| GitHub | Source Code Repository |
