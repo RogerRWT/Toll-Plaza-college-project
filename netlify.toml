@@ -9,7 +9,7 @@
 # Proxy /api/* → your Render backend (browser stays on Netlify = no CORS issues)
 [[redirects]]
   from = "/api/*"
-  to = "https://REPLACE-WITH-YOUR-RENDER-URL.onrender.com/:splat"
+  to = "https://toll-plaza-college-project.onrender.com/:splat"
   status = 200
   force = true
 
