@@ -187,6 +187,10 @@ curl -X PATCH http://localhost:3000/logs/<LOG_ID>/flag \
 - **Backend:** NestJS 10, class-validator, in-memory persistence
 - **Frontend:** Angular 18 (standalone components), HttpClient
 
+## Run online (public URL)
+
+To host on the internet (not localhost), see **[DEPLOYMENT.md](./DEPLOYMENT.md)** — free hosting with Render (API) + Netlify or Vercel (dashboard).
+
 ## Author
 
 RogerRWT — Toll Plaza college project

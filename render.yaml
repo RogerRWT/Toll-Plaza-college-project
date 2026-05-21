@@ -1,0 +1,17 @@
+# Deploy backend on Render: https://render.com
+# Dashboard → New → Blueprint → connect this repo (or create Web Service manually)
+
+services:
+  - type: web
+    name: toll-plaza-api
+    runtime: node
+    rootDir: backend
+    buildCommand: npm install && npm run build
+    startCommand: npm run start:prod
+    plan: free
+    envVars:
+      - key: NODE_ENV
+        value: production
+      # Set after frontend is deployed, e.g. https://your-app.netlify.app
+      - key: CORS_ORIGIN
+        value: http://localhost:4200

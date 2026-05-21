@@ -5,8 +5,13 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 REMOTE="https://github.com/RogerRWT/Toll-Plaza-college-project.git"
 
-if ! command -v git >/dev/null 2>&1; then
-  echo "Install Git first:  xcode-select --install"
+GH_GIT="/Applications/GitHub Desktop.app/Contents/Resources/app/git/bin/git"
+if [ -x "$GH_GIT" ]; then
+  export PATH="/Applications/GitHub Desktop.app/Contents/Resources/app/git/bin:$PATH"
+  export GIT_EXEC_PATH="/Applications/GitHub Desktop.app/Contents/Resources/app/git/libexec/git-core"
+  git config credential.helper "/Applications/GitHub Desktop.app/Contents/Resources/app/git/bin/git-credential-desktop" 2>/dev/null || true
+elif ! command -v git >/dev/null 2>&1; then
+  echo "Install Git: xcode-select --install  OR  GitHub Desktop"
   exit 1
 fi
 
