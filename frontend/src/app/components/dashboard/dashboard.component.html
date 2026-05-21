@@ -1,0 +1,63 @@
+<section class="card dashboard">
+  <header class="dashboard-header">
+    <div>
+      <h2>Recent Vehicle Entries</h2>
+      <p>{{ logs.length }} record(s) shown</p>
+    </div>
+  </header>
+
+  @if (loading) {
+    <p class="state-message">Loading toll records…</p>
+  } @else if (logs.length === 0) {
+    <p class="state-message">No vehicles match your filters.</p>
+  } @else {
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>License Plate</th>
+            <th>Vehicle Type</th>
+            <th>Timestamp</th>
+            <th>Toll Fee</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (log of logs; track log.id) {
+            <tr [class.flagged]="log.flagged">
+              <td class="plate">{{ log.licensePlate }}</td>
+              <td>
+                {{ log.vehicleType }}
+                @if (log.isOfficial) {
+                  <span class="badge official">Official</span>
+                }
+              </td>
+              <td>{{ log.timestamp | date: 'medium' }}</td>
+              <td class="fee">{{ log.tollFee | currency: 'USD' : 'symbol' : '1.2-2' }}</td>
+              <td>
+                <span class="status-pill" [class]="statusClass(log.status)">
+                  {{ log.status }}
+                </span>
+              </td>
+              <td>
+                @if (log.status !== TollStatus.Violation) {
+                  <button
+                    type="button"
+                    class="btn danger small"
+                    (click)="onFlag(log)"
+                    title="Flag as violation"
+                  >
+                    Flag
+                  </button>
+                } @else {
+                  <span class="muted">Flagged</span>
+                }
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</section>

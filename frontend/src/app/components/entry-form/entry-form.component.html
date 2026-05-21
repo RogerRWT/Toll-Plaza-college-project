@@ -1,0 +1,40 @@
+<section class="card entry-form">
+  <header>
+    <h2>New Vehicle Entry</h2>
+    <p>Simulate a vehicle passing through the toll plaza.</p>
+  </header>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="field">
+      <label for="licensePlate">License Plate</label>
+      <input
+        id="licensePlate"
+        type="text"
+        formControlName="licensePlate"
+        placeholder="e.g. XYZ-7890"
+        autocomplete="off"
+      />
+      @if (form.get('licensePlate')?.invalid && form.get('licensePlate')?.touched) {
+        <span class="error">License plate is required (min 2 characters).</span>
+      }
+    </div>
+
+    <div class="field">
+      <label for="vehicleType">Vehicle Type</label>
+      <select id="vehicleType" formControlName="vehicleType">
+        @for (type of vehicleTypes; track type) {
+          <option [value]="type">{{ type }}</option>
+        }
+      </select>
+    </div>
+
+    <div class="field checkbox-field">
+      <label>
+        <input type="checkbox" formControlName="isOfficial" />
+        Official / Government vehicle (fee waived)
+      </label>
+    </div>
+
+    <button type="submit" class="btn primary">Record Entry</button>
+  </form>
+</section>

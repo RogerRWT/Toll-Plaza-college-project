@@ -1,0 +1,51 @@
+<div class="layout">
+  <header class="top-bar">
+    <div class="brand">
+      <span class="brand-icon" aria-hidden="true">⛽</span>
+      <div>
+        <h1>Toll Plaza Operator Dashboard</h1>
+        <p>Monitor entries, toll fees, and violations in real time.</p>
+      </div>
+    </div>
+    <button type="button" class="btn secondary" (click)="loadLogs()">Refresh</button>
+  </header>
+
+  @if (error()) {
+    <div class="alert" role="alert">{{ error() }}</div>
+  }
+
+  <section class="filters card">
+    <div class="field">
+      <label for="plateSearch">Search by License Plate</label>
+      <input
+        id="plateSearch"
+        type="search"
+        placeholder="e.g. ABC"
+        [ngModel]="plateFilter()"
+        (ngModelChange)="onPlateFilterChange($event)"
+      />
+    </div>
+    <div class="field">
+      <label for="typeFilter">Filter by Vehicle Type</label>
+      <select
+        id="typeFilter"
+        [ngModel]="typeFilter()"
+        (ngModelChange)="onTypeFilterChange($event)"
+      >
+        <option value="">All types</option>
+        @for (type of vehicleTypes; track type) {
+          <option [value]="type">{{ type }}</option>
+        }
+      </select>
+    </div>
+  </section>
+
+  <div class="main-grid">
+    <app-entry-form (submitEntry)="onCreateEntry($event)" />
+    <app-dashboard
+      [logs]="filteredLogs()"
+      [loading]="loading()"
+      (flagVehicle)="onFlagVehicle($event)"
+    />
+  </div>
+</div>
