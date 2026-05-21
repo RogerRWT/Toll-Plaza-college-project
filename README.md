@@ -1,11 +1,12 @@
+````md
 # Toll Plaza Operator Dashboard
 
 A mini full-stack Toll Plaza Management System built using Angular and NestJS.
 
-Operators can:
-- View vehicle entries
+This project allows toll plaza operators to:
+- View recent vehicle entries
 - Calculate toll fees automatically
-- Filter/search records
+- Search and filter records
 - Add new vehicle entries
 - Flag vehicles as violations
 
@@ -13,13 +14,13 @@ Operators can:
 
 # Live Demo
 
-### Frontend (Angular UI)
+## Frontend (Angular UI)
 https://fascinating-pika-e72922.netlify.app/
 
-### Backend API (NestJS)
+## Backend API (NestJS)
 https://toll-plaza-college-project.onrender.com/
 
-### GitHub Repository
+## GitHub Repository
 https://github.com/RogerRWT/Toll-Plaza-college-project
 
 ---
@@ -44,7 +45,8 @@ https://github.com/RogerRWT/Toll-Plaza-college-project
 ## Dashboard
 - Responsive toll logs table
 - Vehicle details display
-- Toll fee calculation
+- Timestamp display
+- Automatic toll fee calculation
 - Status tracking
 
 ## Filtering
@@ -67,7 +69,7 @@ https://github.com/RogerRWT/Toll-Plaza-college-project
 | Car | $5 |
 | Motorcycle | $2 |
 | Truck | $10 |
-| Official/Government | $0 |
+| Official/Government Vehicle | $0 |
 
 ---
 
@@ -83,7 +85,27 @@ https://github.com/RogerRWT/Toll-Plaza-college-project
 
 # Run Locally
 
-## 1. Clone Repository
+## Prerequisites
+
+Install these before running the project:
+
+- Node.js (v18 or higher)
+- npm
+- Git
+
+Download Node.js:
+https://nodejs.org/
+
+Check installation:
+
+```bash
+node -v
+npm -v
+```
+
+---
+
+## 1. Clone the Repository
 
 ```bash
 git clone https://github.com/RogerRWT/Toll-Plaza-college-project.git
@@ -92,7 +114,9 @@ cd Toll-Plaza-college-project
 
 ---
 
-## 2. Start Backend
+# Run Backend Server
+
+Open a terminal inside the project folder:
 
 ```bash
 cd backend
@@ -100,14 +124,23 @@ npm install
 npm run start:dev
 ```
 
-Backend runs on:
+Backend will run on:
+
+```bash
 http://localhost:3000
+```
+
+Test API:
+
+```bash
+http://localhost:3000/logs
+```
 
 ---
 
-## 3. Start Frontend
+# Run Frontend Client
 
-Open another terminal:
+Open a SECOND terminal:
 
 ```bash
 cd frontend
@@ -115,8 +148,21 @@ npm install
 npm start
 ```
 
-Frontend runs on:
+Frontend will run on:
+
+```bash
 http://localhost:4200
+```
+
+Open this URL in your browser.
+
+---
+
+# Important
+
+- Start the backend first
+- Then start the frontend
+- Keep both terminals running while using the project
 
 ---
 
@@ -136,3 +182,4 @@ Toll-Plaza-college-project/
 
 RogerRWT  
 College Mini Project
+````
